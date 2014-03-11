@@ -16,8 +16,8 @@ add your command
 require __DIR__ . '/vendor/autoload.php';
 class HelloCommand extends \Consolet\Command
 {
-    // this command name is hello (auto set by Class name if empty)
-    // if you change it, comment out below line
+    // this command name is hello (auto set by Class name)
+    // if you want to change it, edit $name property
     //protected $name = 'hey';
     public function fire()
     {
