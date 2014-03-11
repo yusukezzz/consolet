@@ -2,6 +2,10 @@
 
 simple cui wrapper
 
+### install
+
+    composer require yusukezzz/consolet:dev-master
+
 ### usage
 
 ```PHP
