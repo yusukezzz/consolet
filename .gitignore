@@ -1,5 +1,6 @@
 /vendor
 composer.phar
+consolet.php
 
 # Numerous always-ignore extensions
 *.diff

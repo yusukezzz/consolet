@@ -50,11 +50,11 @@ class Command extends \Illuminate\Console\Command
      */
     protected function initializeName($name)
     {
-        if (is_null($this->getName())) {
+        if (is_null($this->name)) {
             if ( is_null($name)) {
                 $name = self::camelToCommand(get_called_class());
             }
-            $this->setName($name);
+            $this->name = $name;
         }
     }
 
