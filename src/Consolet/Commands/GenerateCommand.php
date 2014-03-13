@@ -1,66 +1,59 @@
 <?php namespace Consolet\Commands;
 
+use Consolet\Generators\CommandGenerator;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 
-class GenerateCommand extends \Consolet\StubGeneratorCommand
+class GenerateCommand extends \Consolet\Command
 {
     protected $name = 'generate:command';
 
     protected $description = 'Create a new command';
 
+    /**
+     * @var \Consolet\Generators\CommandGenerator
+     */
+    protected $generator;
+
+    public function __construct(CommandGenerator $generator = null)
+    {
+        parent::__construct();
+        $this->generator = $generator ?: new CommandGenerator($this);
+    }
+
     public function fire()
     {
-        $namespace = $this->input->getOption('namespace');
+        $namespace = $this->option('namespace');
         if ( ! is_null($namespace)) {
             $namespace = ' namespace '.$namespace.';';
         } else {
             $namespace = ' namespace Consolet\\Commands;';
         }
         $replacement = [];
-        $replacement['{{class}}'] = $this->input->getArgument('name');
+        $replacement['{{class}}'] = $this->argument('name');
         $replacement['{{namespace}}'] = (string) $namespace;
-        $this->generate($replacement);
+        $this->generator->setPathCommands($this->container['path.commands']);
+        $this->comment('target: '.$this->generator->getOutputPath());
+        if ($this->generator->generate($replacement)) {
+            $this->info('Command created successfully.');
+        } else {
+            $this->error('Command already exists.');
+        }
 
-        $this->comment($this->getOutputPath());
-        $this->info('generate command successfully');
     }
 
-    /**
-     * get stub text
-     *
-     * @return string
-     */
-    protected function getStub()
+    protected function getArguments()
     {
-        $path = __DIR__ . '/stubs/command.php';
-        return $this->files->get($path);
-    }
-
-    protected function getOutputDir()
-    {
-        $path = null;
-        if (isset($this->container['path.commands'])) {
-            $path = $this->container['path.commands'];
-        }
-        if ( ! is_null($output = $this->input->getOption('output'))) {
-            $path = $output;
-        }
-        if (is_null($path)) {
-            throw new \RuntimeException('You should set path.commands container key or --output option');
-        }
-        return $path;
-    }
-
-    protected function getOutputFilename()
-    {
-        return $this->input->getArgument('name').'.php';
+        return array(
+            array('name', null, InputArgument::REQUIRED, 'command class name'),
+        );
     }
 
     protected function getOptions()
     {
-        $options = parent::getOptions();
-        $options[] = array('namespace', null, InputOption::VALUE_OPTIONAL, 'command namespace', null);
-        return $options;
+        return array(
+            array('output', null, InputOption::VALUE_OPTIONAL, 'command store path', null),
+            array('namespace', null, InputOption::VALUE_OPTIONAL, 'command namespace', null),
+        );
     }
 }
