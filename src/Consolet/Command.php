@@ -46,6 +46,16 @@ class Command extends \Illuminate\Console\Command
     }
 
     /**
+     * alias of Application working path
+     *
+     * @return string
+     */
+    public function getWorkingPath()
+    {
+        return $this->getApplication()->getWorkingPath();
+    }
+
+    /**
      * @param string $name
      */
     protected function initializeName($name)

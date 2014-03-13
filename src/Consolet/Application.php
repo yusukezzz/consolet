@@ -53,15 +53,23 @@ class Application extends \Symfony\Component\Console\Application
 
     public function getWorkingPath()
     {
-        return $this->workingPath;
+        return $this->workingPath ?: getcwd();
     }
 
+    /**
+     * @param $container
+     * @return \Consolet\Application
+     */
     public function setContainer($container)
     {
         $this->container = $container;
         return $this;
     }
 
+    /**
+     * @param $cwd
+     * @return \Consolet\Application
+     */
     public function setWorkingPath($cwd)
     {
         $this->workingPath = $cwd;

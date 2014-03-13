@@ -3,7 +3,7 @@
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 
-class GenerateCommand extends StubGeneratorCommand
+class GenerateCommand extends \Consolet\StubGeneratorCommand
 {
     protected $name = 'generate:command';
 
@@ -11,34 +11,19 @@ class GenerateCommand extends StubGeneratorCommand
 
     public function fire()
     {
-        $replacement = [
-            '{{class}}' => $this->input->getArgument('name'),
-        ];
         $namespace = $this->input->getOption('namespace');
         if ( ! is_null($namespace)) {
-            $namespace = ' '.$namespace;
+            $namespace = ' namespace '.$namespace.';';
+        } else {
+            $namespace = ' namespace Consolet\\Commands;';
         }
+        $replacement = [];
+        $replacement['{{class}}'] = $this->input->getArgument('name');
         $replacement['{{namespace}}'] = (string) $namespace;
         $this->generate($replacement);
 
+        $this->comment($this->getOutputPath());
         $this->info('generate command successfully');
-    }
-
-    protected function getOutputFilename()
-    {
-        return $this->input->getArgument('name').'.php';
-    }
-
-    /**
-     * save formatted stub text
-     *
-     * @param string $stub
-     * @return mixed
-     */
-    protected function store($stub)
-    {
-        $path = $this->container['path'].'/commands/'.$this->getOutputFilename();
-        return $this->files->put($path, $stub);
     }
 
     /**
@@ -50,6 +35,26 @@ class GenerateCommand extends StubGeneratorCommand
     {
         $path = __DIR__ . '/stubs/command.php';
         return $this->files->get($path);
+    }
+
+    protected function getOutputDir()
+    {
+        $path = null;
+        if (isset($this->container['path.commands'])) {
+            $path = $this->container['path.commands'];
+        }
+        if ( ! is_null($output = $this->input->getOption('output'))) {
+            $path = $output;
+        }
+        if (is_null($path)) {
+            throw new \RuntimeException('You should set path.commands container key or --output option');
+        }
+        return $path;
+    }
+
+    protected function getOutputFilename()
+    {
+        return $this->input->getArgument('name').'.php';
     }
 
     protected function getOptions()

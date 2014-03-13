@@ -20,16 +20,6 @@ class {{class}} extends \Consolet\Command {
     protected $description = 'Command description.';
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      *
      * @return void
