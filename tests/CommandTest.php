@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../vendor/autoload.php';
+
 use Consolet\Command;
 
 class CommandTest extends PHPUnit_Framework_TestCase
