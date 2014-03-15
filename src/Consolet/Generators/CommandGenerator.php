@@ -23,12 +23,12 @@ class CommandGenerator extends AbstractStubGenerator
      *
      * @return string
      */
-    protected function getStub()
+    public function getStub()
     {
         return $this->files->get(__DIR__ . '/stubs/command.php');
     }
 
-    protected function getOutputDir()
+    public function getOutputDir()
     {
         $path = null;
         if ( ! is_null($this->getPathCommands())) {
@@ -43,7 +43,7 @@ class CommandGenerator extends AbstractStubGenerator
         return $path;
     }
 
-    protected function getOutputFilename()
+    public function getOutputFilename()
     {
         return $this->command->argument('name').'.php';
     }

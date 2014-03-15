@@ -72,9 +72,9 @@ abstract class AbstractStubGenerator
      *
      * @return string
      */
-    abstract protected function getStub();
+    abstract public function getStub();
 
-    abstract protected function getOutputDir();
+    abstract public function getOutputDir();
 
-    abstract protected function getOutputFilename();
+    abstract public function getOutputFilename();
 }
