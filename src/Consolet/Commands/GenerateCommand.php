@@ -26,20 +26,17 @@ class GenerateCommand extends \Consolet\Command
         $namespace = $this->option('namespace');
         if ( ! is_null($namespace)) {
             $namespace = ' namespace '.$namespace.';';
-        } else {
-            $namespace = ' namespace Consolet\\Commands;';
         }
         $replacement = [];
         $replacement['{{class}}'] = $this->argument('name');
         $replacement['{{namespace}}'] = (string) $namespace;
         $this->generator->setPathCommands($this->container['path.commands']);
-        $this->comment('target: '.$this->generator->getOutputPath());
-        if ($this->generator->generate($replacement)) {
+        $this->comment('output: '.$this->generator->getOutputPath());
+        if ($this->generator->execute($replacement)) {
             $this->info('Command created successfully.');
         } else {
             $this->error('Command already exists.');
         }
-
     }
 
     protected function getArguments()

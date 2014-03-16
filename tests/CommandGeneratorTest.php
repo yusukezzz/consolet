@@ -5,6 +5,11 @@ use Mockery as m;
 
 class CommandGeneratorTest extends PHPUnit_Framework_TestCase
 {
+    protected function tearDown()
+    {
+        m::close();
+    }
+
     /**
      * @expectedException \RuntimeException
      */

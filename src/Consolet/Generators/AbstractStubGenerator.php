@@ -25,7 +25,7 @@ abstract class AbstractStubGenerator
      * @param array $replacement
      * @return bool
      */
-    public function generate(array $replacement)
+    public function execute(array $replacement)
     {
         $stub = $this->formatStub($this->getStub(), $replacement);
         return $this->store($stub);

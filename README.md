@@ -25,7 +25,7 @@ class HelloCommand extends \Consolet\Command
     //protected $name = 'hey';
     public function fire()
     {
-        $this->line('Hello world!');
+        $this->line('Hello World!');
     }
 }
 $console = \Consolet\Application::start();
@@ -57,9 +57,9 @@ $console->add(new HogeCommand);
 exit($console->run());
 ```
 
-**more info**
+generate new command
 
-You should read [Laravel command docs](http://laravel.com/docs/commands "Laravel - The PHP Framework For Web Artisans.")
+    $ php cmd.php generate:command HogeCommand --output=path/to/command/dir
 
 ### License
 
