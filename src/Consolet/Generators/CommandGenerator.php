@@ -45,6 +45,6 @@ class CommandGenerator extends AbstractStubGenerator
 
     public function getOutputFilename()
     {
-        return $this->command->argument('name').'.php';
+        return $this->command->argument('name').'Command.php';
     }
 }
