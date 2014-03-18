@@ -59,7 +59,9 @@ exit($console->run());
 
 generate new command
 
-    $ php cmd.php generate:command HogeCommand --output=path/to/command/dir
+    $ php cmd.php generate:command Hoge --output=path/to/commands
+    output: /path/to/commands/HogeCommand.php
+    Command created successfully.
 
 ### License
 
