@@ -21,6 +21,7 @@ class CommandTest extends PHPUnit_Framework_TestCase
             ['HogeHugaCommand', 'hoge:huga'],
             ['Hoge', 'hoge'],
             ['HogeHuga', 'hoge:huga'],
+            ['Console\\Commands\\HogeHuga', 'hoge:huga'],
         ];
     }
 }

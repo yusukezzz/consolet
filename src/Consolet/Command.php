@@ -26,8 +26,9 @@ class Command extends \Illuminate\Console\Command
      */
     public static function camelToCommand($class)
     {
+        $class = last(explode('\\', $class));
         $name = snake_case($class);
-        $name = preg_replace('/_?command/', '', last(explode('\\', $name)));
+        $name = preg_replace('/_?command/', '', $name);
         return str_replace('_', ':', $name);
     }
 
