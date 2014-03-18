@@ -1,5 +1,6 @@
 <?php namespace Consolet;
 
+use Illuminate\Filesystem\Filesystem;
 use Symfony\Component\Console\Command\Command as SymfonyCommand;
 
 class Application extends \Symfony\Component\Console\Application
@@ -44,11 +45,27 @@ class Application extends \Symfony\Component\Console\Application
         if ( ! ($container instanceof \Pimple)) {
             $container = new \Pimple();
         }
+        $container = self::prepareContainer($container);
         /* @var $console Application */
         $console = new static(static::$name, static::$version);
         $console->setContainer($container)
-                ->setAutoExit(false);
+                ->setAutoExit(false)
+                ->addCommandsFromDir(__DIR__ . '/Commands', 'Consolet\\Commands\\');
         return $console;
+    }
+
+    /**
+     * prepare default dependencies
+     *
+     * @param \Pimple $container
+     * @return \Pimple
+     */
+    public static function prepareContainer(\Pimple $container)
+    {
+        if ( ! isset($container['files'])) {
+            $container['files'] = new Filesystem();
+        }
+        return $container;
     }
 
     public function getWorkingPath()
@@ -67,7 +84,7 @@ class Application extends \Symfony\Component\Console\Application
     }
 
     /**
-     * @param $cwd
+     * @param string $cwd
      * @return \Consolet\Application
      */
     public function setWorkingPath($cwd)
@@ -76,11 +93,34 @@ class Application extends \Symfony\Component\Console\Application
         return $this;
     }
 
+    /**
+     * @param bool $bool
+     * @return \Consolet\Application
+     */
+    public function setAutoExit($bool)
+    {
+        parent::setAutoExit($bool);
+        return $this;
+    }
+
+
     public function add(SymfonyCommand $command)
     {
         if ($command instanceof Command) {
             $command->setContainer($this->container);
         }
         return parent::add($command);
+    }
+
+    public function addCommandsFromDir($dir, $namespace = '')
+    {
+        /* @var $files \Illuminate\Filesystem\Filesystem */
+        $files = $this->container['files'];
+        $target = $dir . '/*Command.php';
+        foreach ($files->glob($target) as $file) {
+            $files->requireOnce($file);
+            $class = $namespace . basename($file, '.php');
+            $this->add(new $class);
+        }
     }
 }
