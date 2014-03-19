@@ -28,7 +28,7 @@ class GenerateCommand extends \Consolet\Command
             $namespace = ' namespace '.$namespace.';';
         }
         $replacement = [];
-        $replacement['{{class}}'] = $this->argument('name');
+        $replacement['{{class}}'] = $this->generator->getCommandClassName();
         $replacement['{{namespace}}'] = (string) $namespace;
         $this->generator->setPathCommands($this->container['path.commands']);
         $this->comment('output: '.$this->generator->getOutputPath());

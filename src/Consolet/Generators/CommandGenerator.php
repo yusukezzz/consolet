@@ -4,6 +4,7 @@ class CommandGenerator extends AbstractStubGenerator
 {
     /**
      * path to commands dir
+     *
      * @var string
      */
     protected $pathCommands = null;
@@ -45,6 +46,11 @@ class CommandGenerator extends AbstractStubGenerator
 
     public function getOutputFilename()
     {
-        return $this->command->argument('name').'Command.php';
+        return $this->getCommandClassName().'.php';
+    }
+
+    public function getCommandClassName()
+    {
+        return ucfirst(camel_case($this->command->argument('name'))).'Command';
     }
 }
