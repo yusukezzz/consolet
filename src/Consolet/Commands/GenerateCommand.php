@@ -42,7 +42,7 @@ class GenerateCommand extends \Consolet\Command
     protected function getArguments()
     {
         return array(
-            array('name', null, InputArgument::REQUIRED, 'command class name'),
+            array('name', InputArgument::REQUIRED, 'command name'),
         );
     }
 
