@@ -1,0 +1,15 @@
+box: wercker/php
+build:
+  steps:
+    - script:
+        name: Activate php 5.4
+        code: phpenv global 5.4
+    - script:
+        name: set timezone config
+        code: echo 'date.timezone = "Asia/Tokyo"' >> $HOME/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+    - script:
+        name: install dependencies
+        code: composer install --dev
+    - script:
+        name: execute tests
+        code: phpunit --coverage-text
