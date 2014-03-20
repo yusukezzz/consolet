@@ -1,5 +1,7 @@
 ## Consolet
 
+[![Build Status](https://travis-ci.org/yusukezzz/consolet.png?branch=master)](https://travis-ci.org/yusukezzz/consolet)
+
 simple cui wrapper
 
 ### install
