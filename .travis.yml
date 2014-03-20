@@ -13,6 +13,4 @@ notifications:
   irc:
     channels:
       - "chat.freenode.net#DwNotification2010"
-    on_success: always
-    on_failure: always
     use_notice: true
