@@ -7,3 +7,5 @@ before_script:
   - php composer.phar install --dev
 script:
   - phpunit --coverage-text
+notifications:
+  irc: "irc.freenode.net#DwNotifications2010"
