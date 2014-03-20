@@ -8,7 +8,4 @@ before_script:
 script:
   - phpunit --coverage-text
 notifications:
-  irc:
-    channels:
-      - "chat.freenode.net#DwNotification2010"
-    use_notice: true
+  irc: "chat.freenode.net#DwNotification2010"
