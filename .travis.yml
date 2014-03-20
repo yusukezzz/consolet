@@ -10,4 +10,9 @@ script:
 notifications:
   email:
     - g0632198@gmail.com
-  irc: "chat.freenode.net#DwNotification2010"
+  irc:
+    channels:
+      - "chat.freenode.net#DwNotification2010"
+    on_success: always
+    on_failure: always
+    use_notice: true
