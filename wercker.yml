@@ -13,3 +13,9 @@ build:
     - script:
         name: execute tests
         code: phpunit --coverage-text
+  after-steps:
+    - wouter/irc-notify:
+        server: irc.freenode.net
+        port: 6667
+        nickname: werckerzzz
+        channel: DwNotification2010
