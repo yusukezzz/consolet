@@ -8,8 +8,6 @@ before_script:
 script:
   - phpunit --coverage-text
 notifications:
-  email:
-    - g0632198@gmail.com
   irc:
     channels:
       - "chat.freenode.net#DwNotification2010"
