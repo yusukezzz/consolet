@@ -8,4 +8,4 @@ before_script:
 script:
   - phpunit --coverage-text
 notifications:
-  irc: "chat.freenode.net#yusukezzz"
+  irc: "irc.friend-chat.jp#yusukezzz"
