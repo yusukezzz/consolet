@@ -10,5 +10,5 @@ script:
 notifications:
   irc:
     channels:
-      "irc.freenode.net#DwNotifications2010"
+      "irc.freenode.net#DwNotification2010"
     use_notice: true
