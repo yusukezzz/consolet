@@ -9,6 +9,7 @@ script:
 - phpunit --coverage-text
 notifications:
   irc:
+    ssl: true
     nick: yusukezzz
     channels:
       - takopa.irc.slack.com#notification
