@@ -9,6 +9,7 @@ script:
 - phpunit --coverage-text
 notifications:
   irc:
+    nick: yusukezzz
     channels:
       - takopa.irc.slack.com#notification
     password:
