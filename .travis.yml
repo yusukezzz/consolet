@@ -9,9 +9,8 @@ script:
 - phpunit --coverage-text
 notifications:
   irc:
-    ssl: true
     nick: yusukezzz
     channels:
-      - takopa.irc.slack.com#notification
+      - ssl://takopa.irc.slack.com#notification
     password:
       secure: fWNlnPI1CTMSaR2gL2XuvfaRsZ24icxWsXOyo6VIuCbk9E994Pwlvs3XjTUPSx6744ZWge3W1ZVKEgEqW0832oIOBu39+vzgFbDUkLNZn85LKhFdskq54D1Q8LJwZ/A0phsOI8eJc25SoH5ZtOCBe6UVZEUssV1n5pOK2fxK96s=
