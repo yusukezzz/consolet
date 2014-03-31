@@ -8,9 +8,6 @@ before_script:
 script:
 - phpunit --coverage-text
 notifications:
-  irc:
-    nick: yusukezzz
-    channels:
-      - ssl://takopa.irc.slack.com#notification
-    password:
-      secure: fWNlnPI1CTMSaR2gL2XuvfaRsZ24icxWsXOyo6VIuCbk9E994Pwlvs3XjTUPSx6744ZWge3W1ZVKEgEqW0832oIOBu39+vzgFbDUkLNZn85LKhFdskq54D1Q8LJwZ/A0phsOI8eJc25SoH5ZtOCBe6UVZEUssV1n5pOK2fxK96s=
+  slack:
+    secure: InsU9veI7H9Mo2MJDC0ctHsMQ0GEKNYroiPtEJZ3PZEZgnnxlSGJt081ema7wBrrI3DTGdPD4BvxX4nF5jFZDN7N8wV1O3JDnuFtRla+Tl/4pmW9OPZUaUpjMKYVT1RVCgS/HAzn8+kIulEAAl57FTZo6MY+wQungt6KJlsGhrE=
+
