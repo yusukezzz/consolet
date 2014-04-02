@@ -50,7 +50,7 @@ class Application extends \Symfony\Component\Console\Application
         $console = new static(static::$name, static::$version);
         $console->setContainer($container)
                 ->setAutoExit(false)
-                ->addCommandsFromDir(__DIR__ . '/Commands', 'Consolet\\Commands\\');
+                ->loadProviders();
         return $console;
     }
 
@@ -65,6 +65,12 @@ class Application extends \Symfony\Component\Console\Application
         if ( ! isset($container['files'])) {
             $container['files'] = new Filesystem();
         }
+        if ( ! isset($container['providers'])) {
+            $container['providers'] = [];
+        }
+        $providers = $container['providers'];
+        $providers[] = 'Consolet\DefaultCommandsProvider';
+        $container['providers'] = $providers;
         return $container;
     }
 
@@ -121,6 +127,15 @@ class Application extends \Symfony\Component\Console\Application
             $files->requireOnce($file);
             $class = $namespace . basename($file, '.php');
             $this->add(new $class);
+        }
+    }
+
+    protected function loadProviders()
+    {
+        foreach ($this->container['providers'] as $provider_class) {
+            /* @var $provider \Consolet\CommandProviderInterface */
+            $provider = new $provider_class;
+            $provider->registerCommands($this);
         }
     }
 }
