@@ -17,7 +17,7 @@ class Application extends \Symfony\Component\Console\Application
      *
      * @var string
      */
-    protected static $version = '0.1.1';
+    protected static $version = '0.1.2';
 
     /**
      * DI Container
