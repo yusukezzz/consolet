@@ -90,6 +90,14 @@ class Application extends \Symfony\Component\Console\Application
     }
 
     /**
+     * @return \Pimple
+     */
+    public function getContainer()
+    {
+        return $this->container;
+    }
+
+    /**
      * @param string $cwd
      * @return \Consolet\Application
      */
