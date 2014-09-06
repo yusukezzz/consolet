@@ -1,6 +1,7 @@
 <?php namespace Consolet;
 
 use Illuminate\Filesystem\Filesystem;
+use Pimple\Container;
 use Symfony\Component\Console\Command\Command as SymfonyCommand;
 
 class Application extends \Symfony\Component\Console\Application
@@ -17,12 +18,12 @@ class Application extends \Symfony\Component\Console\Application
      *
      * @var string
      */
-    protected static $version = '0.1.2';
+    protected static $version = '0.1.3';
 
     /**
      * DI Container
      *
-     * @var \Pimple
+     * @var Container
      */
     protected $container;
 
@@ -40,10 +41,10 @@ class Application extends \Symfony\Component\Console\Application
     public static function start($container = null)
     {
         if (is_array($container)) {
-            $container = new \Pimple($container);
+            $container = new Container($container);
         }
-        if ( ! ($container instanceof \Pimple)) {
-            $container = new \Pimple();
+        if ( ! ($container instanceof Container)) {
+            $container = new Container();
         }
         $container = self::prepareContainer($container);
         /* @var $console Application */
@@ -57,10 +58,10 @@ class Application extends \Symfony\Component\Console\Application
     /**
      * prepare default dependencies
      *
-     * @param \Pimple $container
-     * @return \Pimple
+     * @param Container $container
+     * @return Container
      */
-    public static function prepareContainer(\Pimple $container)
+    public static function prepareContainer(Container $container)
     {
         if ( ! isset($container['files'])) {
             $container['files'] = new Filesystem();
@@ -90,7 +91,7 @@ class Application extends \Symfony\Component\Console\Application
     }
 
     /**
-     * @return \Pimple
+     * @return Container
      */
     public function getContainer()
     {
