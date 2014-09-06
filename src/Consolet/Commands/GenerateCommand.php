@@ -41,16 +41,16 @@ class GenerateCommand extends \Consolet\Command
 
     protected function getArguments()
     {
-        return array(
-            array('name', InputArgument::REQUIRED, 'command name'),
-        );
+        return [
+            $this->argumentModeRequired('name', 'command name'),
+        ];
     }
 
     protected function getOptions()
     {
-        return array(
-            array('output', null, InputOption::VALUE_OPTIONAL, 'command store path', null),
-            array('namespace', null, InputOption::VALUE_OPTIONAL, 'command namespace', null),
-        );
+        return [
+            $this->optionModeOptional('output', 'command store path'),
+            $this->optionModeOptional('namespace', 'command namespace'),
+        ];
     }
 }

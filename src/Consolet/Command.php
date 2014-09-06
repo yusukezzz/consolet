@@ -1,5 +1,7 @@
 <?php namespace Consolet;
 
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Process\Process;
 
 class Command extends \Illuminate\Console\Command
@@ -16,6 +18,95 @@ class Command extends \Illuminate\Console\Command
     {
         $this->initializeName($name);
         parent::__construct();
+    }
+
+    /**
+     * Build required argument rule
+     *
+     * @param string $name
+     * @param string $description
+     * @param mixed $defaultValue
+     * @return array
+     */
+    public function argumentModeRequired($name, $description, $defaultValue = null)
+    {
+        $mode = InputArgument::REQUIRED;
+        return [$name, $mode, $description, $defaultValue];
+    }
+
+    /**
+     * Build optional argument rule
+     *
+     * @param string $name
+     * @param string $description
+     * @param mixed $defaultValue
+     * @return array
+     */
+    public function argumentModeOptional($name, $description, $defaultValue = null)
+    {
+        $mode = InputArgument::OPTIONAL;
+        return [$name, $mode, $description, $defaultValue];
+    }
+
+    /**
+     * Build required option rule
+     *
+     * @param string $name
+     * @param string $description
+     * @param mixed $defaultValue
+     * @return array
+     */
+    public function optionModeRequired($name, $description, $defaultValue = null)
+    {
+        $shortcut = null;
+        $mode = InputOption::VALUE_REQUIRED;
+        return [$name, $shortcut, $mode, $description, $defaultValue];
+    }
+
+    /**
+     * Build optional option rule
+     *
+     * @param string $name
+     * @param string $description
+     * @param mixed $defaultValue
+     * @return array
+     */
+    public function optionModeOptional($name, $description, $defaultValue = null)
+    {
+        $shortcut = null;
+        $mode = InputOption::VALUE_OPTIONAL;
+        return [$name, $shortcut, $mode, $description, $defaultValue];
+    }
+
+    /**
+     * Build multiple values option rule
+     * ex) --hoge_option=bar --hoge_option=baz
+     *
+     * @param string $name
+     * @param string $description
+     * @param mixed $defaultValue
+     * @return array
+     */
+    public function optionModeArray($name, $description, $defaultValue = null)
+    {
+        $shortcut = null;
+        $mode = InputOption::VALUE_IS_ARRAY;
+        return [$name, $shortcut, $mode, $description, $defaultValue];
+    }
+
+    /**
+     * Build no value option rule
+     * ex) --hoge_option
+     *
+     * @param string $name
+     * @param string $description
+     * @return array
+     */
+    public function optionModeNoValue($name, $description)
+    {
+        $shortcut = null;
+        $mode = InputOption::VALUE_NONE;
+        return [$name, $shortcut, $mode, $description, $defaultValue = null];
     }
 
     /**
