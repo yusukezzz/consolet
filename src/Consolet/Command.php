@@ -1,13 +1,11 @@
 <?php namespace Consolet;
 
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Process;
 
 class Command extends \Illuminate\Console\Command
 {
     /**
-     * @var \Pimple
+     * @var \Pimple\Container
      */
     protected $container;
 
@@ -35,9 +33,6 @@ class Command extends \Illuminate\Console\Command
     public function setContainer($container)
     {
         $this->container = $container;
-        // set pimple instead of illuminate/foundation/application
-        // it is possible to also use the command of laravel if array access
-        $this->setLaravel($container);
     }
 
     /**
