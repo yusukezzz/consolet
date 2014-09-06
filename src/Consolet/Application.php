@@ -126,18 +126,6 @@ class Application extends \Symfony\Component\Console\Application
         return parent::add($command);
     }
 
-    public function addCommandsFromDir($dir, $namespace = '')
-    {
-        /* @var $files \Illuminate\Filesystem\Filesystem */
-        $files = $this->container['files'];
-        $target = $dir . '/*Command.php';
-        foreach ($files->glob($target) as $file) {
-            $files->requireOnce($file);
-            $class = $namespace . basename($file, '.php');
-            $this->add(new $class);
-        }
-    }
-
     protected function loadProviders()
     {
         foreach ($this->container['providers'] as $provider_class) {
