@@ -31,15 +31,18 @@ class CommandGenerator extends AbstractStubGenerator
 
     public function getOutputDir()
     {
-        $path = null;
-        if ( ! is_null($this->getPathCommands())) {
-            $path = $this->getPathCommands();
-        }
+        $path = $this->getPathCommands();
         if ( ! is_null($output = $this->command->option('output'))) {
-            $path = $output;
+            $path = $this->command->getWorkingPath() . DIRECTORY_SEPARATOR . $output;
         }
         if (is_null($path)) {
-            throw new \RuntimeException('You should set path.commands container key or --output option');
+            throw new \RuntimeException('You should set paths.commands config key or --output option');
+        }
+        if ( ! is_dir($path)) {
+            throw new \RuntimeException("Directory not exists or not directory: $path");
+        }
+        if ( ! is_writable($path)) {
+            throw new \RuntimeException("Not writable: $path");
         }
         return $path;
     }

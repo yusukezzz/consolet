@@ -33,21 +33,25 @@ class CommandGeneratorTest extends PHPUnit_Framework_TestCase
 
     public function testGetOutputDir_set_output_option()
     {
-        $output = __DIR__;
+        $output = '../tests';
         $cmd = m::mock('Consolet\Command');
         $cmd->shouldReceive('option')->with('output')->andReturn($output);
+        $cmd->shouldReceive('getWorkingPath')->andReturn(__DIR__);
         $gen = new CommandGenerator($cmd);
-        $this->assertSame($output, $gen->getOutputDir());
+        $expected_path = __DIR__ . DIRECTORY_SEPARATOR . $output;
+        $this->assertSame($expected_path, $gen->getOutputDir());
     }
 
     public function testGetOutputDir_output_option_high_priority()
     {
-        $path = 'hoge';
-        $output = __DIR__;
+        $path = 'path/to/commands';
+        $output = '../tests';
         $cmd = m::mock('Consolet\Command');
         $cmd->shouldReceive('option')->with('output')->andReturn($output);
+        $cmd->shouldReceive('getWorkingPath')->andReturn(__DIR__);
         $gen = new CommandGenerator($cmd);
         $gen->setPathCommands($path);
-        $this->assertSame($output, $gen->getOutputDir());
+        $expected_path = __DIR__ . DIRECTORY_SEPARATOR . $output;
+        $this->assertSame($expected_path, $gen->getOutputDir());
     }
 }

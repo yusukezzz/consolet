@@ -30,7 +30,7 @@ class GenerateCommand extends \Consolet\Command
         $replacement = [];
         $replacement['{{class}}'] = $this->generator->getCommandClassName();
         $replacement['{{namespace}}'] = (string) $namespace;
-        $this->generator->setPathCommands($this->container['path.commands']);
+        $this->generator->setPathCommands($this->config('paths.commands'));
         $this->comment('output: '.$this->generator->getOutputPath());
         if ($this->generator->execute($replacement)) {
             $this->info('Command created successfully.');
@@ -49,7 +49,7 @@ class GenerateCommand extends \Consolet\Command
     protected function getOptions()
     {
         return [
-            $this->optionModeOptional('output', 'command store path'),
+            $this->optionModeOptional('output', 'command store path (relative from cwd)'),
             $this->optionModeOptional('namespace', 'command namespace'),
         ];
     }
