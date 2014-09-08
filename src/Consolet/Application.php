@@ -50,6 +50,7 @@ class Application extends \Symfony\Component\Console\Application
         /* @var $console Application */
         $console = new static(static::$name, static::$version);
         $console->setContainer($container)
+                ->mergeDefaultConfig()
                 ->setAutoExit(false)
                 ->loadProviders();
         return $console;
@@ -63,6 +64,9 @@ class Application extends \Symfony\Component\Console\Application
      */
     public static function prepareContainer(Container $container)
     {
+        if ( ! isset($container['config'])) {
+            $container['config'] = [];
+        }
         if ( ! isset($container['files'])) {
             $container['files'] = new Filesystem();
         }
@@ -125,6 +129,20 @@ class Application extends \Symfony\Component\Console\Application
             $command->setContainer($this->container);
         }
         return parent::add($command);
+    }
+
+    /**
+     * @return \Consolet\Application
+     */
+    protected function mergeDefaultConfig()
+    {
+        $default = [
+            'paths.base' => $this->getWorkingPath(),
+            'paths.commands' => $this->getWorkingPath() . '/commands',
+        ];
+        $config = $this->container['config'];
+        $this->container['config'] = array_merge($default, $config);
+        return $this;
     }
 
     protected function loadProviders()

@@ -20,6 +20,16 @@ class Command extends \Illuminate\Console\Command
         parent::__construct();
     }
 
+    public function config($key, $defaultValue = null)
+    {
+        $config = $this->container['config'];
+        if (array_key_exists($key, $config)) {
+            return $config[$key];
+        } else {
+            return $defaultValue;
+        }
+    }
+
     /**
      * Build required argument rule
      *
